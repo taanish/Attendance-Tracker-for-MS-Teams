@@ -1,0 +1,20 @@
+Breaking down the attendance project 
+
+1) The Programme reads a .csv file with the data of joining/leaving and stores it in some other easily traversable and readable format (lists)
+2) As per user action, it calculates total join time 
+    a) Everytime one kid is mentioned, they either join or leave. All odd mentions of the kid joining are Join and even mentions are Left. 
+    b) for a kid who joins, leaves once, and joins back for the rest of the class: joinTime= firstLeaveTime -   firstJoinTime + classEndTime - secondJoinTime
+    c) Figure out a way to generalise the second step to n joins and leaves
+    d) All possible cases:
+        --> Kid joins once and attends the entire class
+        --> Kid joins once and leaves midway
+        --> Kid joins once, leaves once, joins back, leaves again  (number of leaves and joins can be variable)
+        --> Kid joins once, leaves once, joins back, doesn't leave 
+3) If the total jointime is greater than some % of class time as set by the teacher, a present is stored for that student on a new csv/other format file
+4) The new file with the attendance marked updates a google sheet url as provided by the user
+
+
+
+
+
+
