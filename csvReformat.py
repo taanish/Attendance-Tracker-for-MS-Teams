@@ -1,5 +1,8 @@
 import csv
 import json
+
+endTime = 800 #demo value for class endtime 
+
 def timeStampProcessor(ts):
     date, time = ts.split(' ', 1)  #Seperates date and time from timeStamp variable
     half = time[-2:] #PM or AM
@@ -17,10 +20,31 @@ def timeStampProcessor(ts):
     return tempTime
 
 
+def addEndTime (timeList, endTime):  #A) Ensures that every element in timeList is even    B) Every item in timeList ends with the time they left the class
+    for i in timeList:
+        l= len(i)
+
+        if (l%2==1):
+            i.append(endTime)
+    
+    return timeList
+
+
+def removeDuplicateNames(nameList):
+    uniqueNames = []
+    for name in nameList:
+        if name not in uniqueNames:
+            uniqueNames.append(name)
+    
+    return uniqueNames
+
+
 
 def reformatCSV (Attendance):
     actionData = {}
     timeData = {}
+    nameList= [] 
+    timeList= [] 
     with open (Attendance, 'r', encoding= 'utf-16') as f:
         reader = csv.reader(f, delimiter = '\t')
 
@@ -28,6 +52,7 @@ def reformatCSV (Attendance):
 
         for row in reader:
             name= row[0]
+            nameList.append(name)
             action= row[1]
             timeStamp= timeStampProcessor(row[2])
 
@@ -37,17 +62,33 @@ def reformatCSV (Attendance):
             else:
                 actionData[name]= [action]
                 timeData[name]= [timeStamp]
+    
+    
+    actionNameDict = [{name: actions} for name, actions in actionData.items()]
+    timeNameDict= [{name: timeStamp} for name, timeStamp in timeData.items()]
+    
+    
+    for dict in timeNameDict:
+        for val in dict.values():
+            timeList.append(val)
+    
+    timeList = addEndTime(timeList, endTime)
+    nameList = removeDuplicateNames(nameList)
 
-    action = [{name: actions} for name, actions in actionData.items()]
-    time= [{name: timeStamp} for name, timeStamp in timeData.items()]
+
+    return timeList, nameList, actionNameDict, timeNameDict
+
+
     
-    
-    return action, time
  
-tempAction , tempTime = reformatCSV("demoAttendance.csv")
+# timeList, nameList, actionNameDict , timeNameDict = reformatCSV("demoAttendance.csv")
 
-print(json.dumps(tempAction, indent=4))
-print(json.dumps(tempTime, indent=4))
+# print(timeList)
+# print(nameList)
+# print(json.dumps(actionNameDict))
+# print(json.dumps(timeNameDict))
+
+
 
     
 
