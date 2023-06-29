@@ -3,3 +3,4 @@ projectBreakDown.txt
 .DS_Store
 .vscode/
 __pycache__/
+.env
