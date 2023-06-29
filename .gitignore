@@ -1,0 +1,5 @@
+credentials.json
+projectBreakDown.txt
+.DS_Store
+.vscode/
+__pycache__/
