@@ -24,7 +24,7 @@ def computeJoinTimeList(timeList):
 
 
 # Combines nameList (unique) and joinTimeList to generate a final attendance report
-def attendanceStatus():
+def attendanceReportGenerator():
     attendanceReport = []
 
     joinTimeList = computeJoinTimeList(timeList)
@@ -40,4 +40,4 @@ def attendanceStatus():
     return attendanceReport
 
 
-print(attendanceStatus())
+print(attendanceReportGenerator())
