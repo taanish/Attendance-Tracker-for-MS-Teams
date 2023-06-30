@@ -1,24 +1,35 @@
 import csv
 import json
 
-# demo value for class startTime and endTime, to be inputted by the user during main()
-classStartTime = 760
-classEndTime = 800
-classDuration = classEndTime - classStartTime
+
+def getClassTimings():
+
+    print("You will now be prompted to enter the class start and end times. Your input needs to be in this format (12hr) --> HH:MM AM/PM \nHere's a sample valid input--> 08:20 AM")
+    classStartTime = int(
+        input("Enter the class start time in the format specified: "))
+    classEndTime = int(
+        input("Enter the class start time in the format specified: "))
+
+    classStartTime = timeStampProcessor(classStartTime)
+    classEndTime = timeStampProcessor(classEndTime)
+    classDuration = classEndTime - classStartTime
+
+    return classStartTime, classEndTime, classDuration
 
 
 # Note: implement functtionality for processing class starttime and class endtime in timeStampProcessor
 
 def timeStampProcessor(ts):
-    # Seperates date and time from timeStamp variable
-    date, time = ts.split(' ', 1)
-    half = time[-2:]  # PM or AM
-    time = time[:-2]  # Time of day in 12Hr format
+    parts = ts.split(' ')
+    if len(parts) == 3:  # Timestamp has a date part
+        date, time, half = parts
+    elif len(parts) == 2:  # Timestamp doesn't have a date part
+        time, half = parts
 
     # Seperates time variable into hour, min, and second
-    hour, min, sec = time.split(':')
+    hour, min = time.split(':')
 
-    hour, min, sec = int(hour), int(min), int(sec)
+    hour, min = int(hour), int(min)
 
     if half == 'PM':  # Converts initialHour from 12Hr format to 24Hr format
         if hour < 12:
