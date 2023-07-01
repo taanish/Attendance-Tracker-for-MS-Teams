@@ -1,14 +1,5 @@
-import csv
-import json
-from textwrap import indent
-import csvReformat
-
-timeList, nameList, actionNameDict, timeNameDict = csvReformat.reformatCSV(
-    'demoAttendance.csv')
-
-
 # Takes raw timeList with all timestamps and parses it to extract total joinTimes and returns it via joinTimeList
-def computeJoinTimeList(timeList):
+def computeTotalJoinTimeList(timeList):
     joinTimeList = []
     for i in timeList:
         l = len(i)
@@ -24,20 +15,18 @@ def computeJoinTimeList(timeList):
 
 
 # Combines nameList (unique) and joinTimeList to generate a final attendance report
-def attendanceReportGenerator():
+# Uses timeList, nameList, classDuration
+def attendanceReportGenerator(timeList, nameList, classDuration):
     attendanceReport = []
 
-    joinTimeList = computeJoinTimeList(timeList)
+    joinTimeList = computeTotalJoinTimeList(timeList)
     timeThreshold = int(input("Out of the %s mins of class time, how many minutes should a student attend in order to get a present mark?" % (
-        csvReformat.classDuration)))
+        classDuration)))
 
     for i in range(len(joinTimeList)):
         if (joinTimeList[i] >= timeThreshold):
-            attendanceReport.append([nameList[i], 'Yes'])
+            attendanceReport.append([nameList[i], 'Present'])
         else:
-            attendanceReport.append([nameList[i], 'No'])
+            attendanceReport.append([nameList[i], 'Absent'])
 
     return attendanceReport
-
-
-print(attendanceReportGenerator())

@@ -2,8 +2,6 @@ import os
 from dotenv import load_dotenv
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import joinStatus
-
 
 load_dotenv()
 creds = {
@@ -20,7 +18,7 @@ creds = {
 }
 
 
-def googleSheetsUpdater():
+def googleSheetsUpdater(attendanceReport):
 
     scope = ['https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_dict(
@@ -31,11 +29,7 @@ def googleSheetsUpdater():
     sheet.clear()
     headers = ["Name", "Presence"]
     sheet.append_row(headers)
-    sheet.append_row([])
+    sheet.append_row(['', ''])
 
-    attendanceReport = joinStatus.attendanceReportGenerator()
     for i in attendanceReport:
         sheet.append_row(i)
-
-
-googleSheetsUpdater()
