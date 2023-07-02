@@ -9,7 +9,7 @@ def getClassTimings():
     classStartTime = (
         input("Enter the class start time in the format specified: "))
     classEndTime = (
-        input("Enter the class start time in the format specified: "))
+        input("Enter the class end time in the format specified: "))
 
     classStartTime = timeStampProcessor(classStartTime)
     classEndTime = timeStampProcessor(classEndTime)
