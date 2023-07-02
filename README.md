@@ -17,10 +17,10 @@ This Python project manages class attendance by reading a CSV file of attendance
 ## Usage
 To use this project,
 * Clone this repo
-* Activate Google Sheets API from Google Cloud Console and download API Credentials
-* Update a .env file with Google Sheets API Credentials (refer to  .env.sample) 
+* Activate Google Sheets API from Google Cloud Console and download Service Account Credentials
+* Update a .env file with Google Sheets API Credentials (refer to  .env.sample)
+* Create a google sheets with the name 'Demo Attendance'. Share this file to the Email mentioned in the API Credentials 
 * Run main.py
-
 
 
 
